@@ -1,0 +1,28 @@
+version: '3'
+services:
+    api:
+        build: .
+        environment:
+            ENV: DEV
+            LOG_LEVEL: debug
+            BASIC_AUTH_USERS: test:test
+            DB_USER: bookmarks
+            DB_PASSWORD: bookmarks
+            DB_HOST: mysql
+            DB_NAME: bookmarks
+        ports:
+            - "8080:8080"
+        volumes:
+            # Allow live editing of swagger.yml
+            - ./docs/:/docs/
+
+    mysql:
+        image: mysql:5.7
+        restart: always
+        ports:
+            - "3307:3306"
+        environment:
+            MYSQL_USER: bookmarks
+            MYSQL_PASSWORD: bookmarks
+            MYSQL_ROOT_PASSWORD: test
+            MYSQL_DATABASE: bookmarks
