@@ -1,0 +1,39 @@
+{{ template "header" . }}
+
+<a href="/web/bookmarks/new" class="btn btn-primary float-right">New Bookmark</a>
+<h4>{{ .count }} bookmarks found</h4>
+
+{{ template "pagination" . }}
+
+{{range .bookmarks}}
+<div class="media">
+  <div class="media-body">
+    <h5 class="mt-0">{{.Title}}</h5>
+    <h6><a href="{{.URL}}">{{.URL}}</a></h6>
+    <p>Added {{.AddedDate | formatDate}} by {{.AuthorName}}
+        {{if .Width}}
+            ({{.Width}} * {{.Height}})
+        {{end}}
+        {{if .Duration}}
+            ({{.Duration}} seconds)
+        {{end}}
+    </p>
+    <p>
+        {{range .Keywords}}
+        <span class="badge badge-secondary">{{.}}</span>
+        {{end}}
+    </p>
+    <p>
+        <form class="form-inline" method="post" action="/web/bookmarks/{{ .ID }}/delete">
+            {{ $.csrfField }}
+            <a href="/web/bookmarks/{{ .ID }}/edit">Edit</a>
+            <button type="submit" class="btn btn-link">Delete</button>
+        </form>
+    </p>
+  </div>
+</div>
+{{end}}
+
+{{ template "pagination" . }}
+
+{{ template "footer" }}

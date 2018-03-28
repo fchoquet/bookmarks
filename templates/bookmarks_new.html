@@ -1,0 +1,18 @@
+{{ template "header" .}}
+
+<form method="post" action="/web/bookmarks/create">
+{{ .csrfField }}
+  <div class="form-group">
+    <label for="url">URL</label>
+    <input type="text" class="form-control" name="url" id="url" placeholder="Copy url here">
+  </div>
+  <div class="form-group">
+    <label for="keywords">Keywords</label>
+    <input type="text" class="form-control" name="keywords" id="keywords" placeholder="Comma separated keywords">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<a href="/">Back</a>
+
+{{ template "footer" }}

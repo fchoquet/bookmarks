@@ -1,0 +1,256 @@
+swagger: "2.0"
+info:
+  description: "This API allows management of bookmarks"
+  version: "0.1.0"
+  title: "Fred's Bookmarks API"
+  contact:
+    email: "fchoquet1975@gmail.com"
+
+basePath: "/"
+
+tags:
+- name: "bookmarks"
+  description: "Access to bookmarks"
+  externalDocs:
+    description: "Source Code"
+    url: "https://github.com/fchoquet/bookmarks/blob/initial-implementation/app/handlers/bookmarks_api.go"
+- name: "healthcheck"
+  description: "Return information about the service health"
+
+schemes:
+- "https"
+
+paths:
+  /bookmarks/{id}:
+    get:
+      tags:
+      - "bookmarks"
+      summary: "GET /bookmarks/{id}"
+      description: "Get a bookmark"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The bookmark id"
+        type: "int"
+        required: true
+      - name: "transaction_id"
+        in: "query"
+        description: "An additional transaction id passed for request tracking. It is added to every log entry"
+        type: "string"
+        required: false
+      security:
+      - basicAuth: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Bookmark"
+        401:
+          $ref: "#/responses/Unauthorized"
+        404:
+          $ref: "#/responses/NotFound"
+    delete:
+      tags:
+      - "bookmarks"
+      summary: "DELETE /bookmarks/{id}"
+      description: "Deletes a bookmark"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The bookmark id"
+        type: "int"
+        required: true
+      - name: "transaction_id"
+        in: "query"
+        description: "An additional transaction id passed for request tracking. It is added to every log entry"
+        type: "string"
+        required: false
+      security:
+      - basicAuth: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Bookmark"
+        401:
+          $ref: "#/responses/Unauthorized"
+        404:
+          $ref: "#/responses/NotFound"
+  /bookmarks:
+    get:
+      tags:
+      - "bookmarks"
+      summary: "GET /bookmarks"
+      description: "Return the list of bookmarks"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "transaction_id"
+        in: "query"
+        description: "An additional transaction id passed for request tracking. It is added to every log entry"
+        type: "string"
+        required: false
+      security:
+      - basicAuth: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Bookmarks"
+        401:
+          $ref: "#/responses/Unauthorized"
+    post:
+      tags:
+      - "bookmarks"
+      summary: "POST /bookmarks"
+      description: "Create a bookmark"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "The bookmark to create"
+        required: true
+        schema:
+          $ref: "#/definitions/Bookmark"
+
+      security:
+      - basicAuth: []
+
+      responses:
+        201:
+          description: "Bookmark successfully created"
+          schema:
+            $ref: "#/definitions/Bookmark"
+        400:
+          $ref: "#/responses/InvalidRequest"
+        401:
+          $ref: "#/responses/Unauthorized"
+        424:
+          $ref: "#/responses/FailedDependency"
+  /bookmarks/{id}/keywords:
+    put:
+      tags:
+      - "bookmarks"
+      summary: "PUT /bookmarks/{id}/keywords"
+      description: "Replaces the keywords associated with a bookmark"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The bookmark id"
+        type: "int"
+        required: true
+      - name: "body"
+        in: "body"
+        description: "An array of keywords"
+        required: true
+        schema:
+          $ref: "#/definitions/Keywords"
+
+      - name: "transaction_id"
+        in: "query"
+        description: "An additional transaction id passed for request tracking. It is added to every log entry"
+        type: "string"
+        required: false
+
+      security:
+      - basicAuth: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Bookmarks"
+        401:
+          $ref: "#/responses/Unauthorized"
+        404:
+          $ref: "#/responses/NotFound"
+
+  /healthcheck:
+    get:
+      tags:
+      - "healthcheck"
+      summary: "Get information about the service health"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Up and running"
+        500:
+          description: "Service down"
+
+securityDefinitions:
+  basicAuth:
+    type: basic
+
+responses:
+  Unauthorized:
+    description: Authentication information is missing or invalid
+
+  NotFound:
+    description: Bookmark not found
+
+  InvalidRequest:
+    description: Invalid parameters passed
+
+  FailedDependency:
+    description: The provided URL is not compatible with the oEmbed protocol
+
+definitions:
+  Keywords:
+    type: "array"
+    items:
+      type: "string"
+
+  Bookmarks:
+    type: "array"
+    items:
+      $ref: "#/definitions/Bookmark"
+
+  Bookmark:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        description: "An auto-generated unique ID"
+      url:
+        type: "string"
+        description: "The bookmark's URL"
+      title:
+        type: "string"
+        description: "The referenced link's title"
+      author_name:
+        type: "string"
+        description: "The referenced link's author"
+      added_date:
+        type: "string"
+        description: "The date when the bookmark was added (RFC3339)"
+      width:
+        type: "integer"
+        description: "When applicable. The with of the referenced picture or video"
+      height:
+        type: "integer"
+        description: "When applicable. The height of the referenced picture or video"
+      duration:
+        type: "integer"
+        description: "When applicable. The duration of the referenced video in seconds"
+      keywords:
+        type: "array"
+        items:
+          type: "string"
+        description: "An array of keywords associated with the bookmark"
+    required:
+    - url
+
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

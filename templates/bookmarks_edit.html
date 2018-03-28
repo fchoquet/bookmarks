@@ -1,0 +1,16 @@
+{{ template "header" . }}
+
+<h5>{{ .url }}</h5>
+
+<form method="post" action="/web/bookmarks/{{ .id }}/update">
+{{ .csrfField }}
+  <div class="form-group">
+    <label for="keywords">Keywords</label>
+    <input type="text" class="form-control" name="keywords" id="keywords" placeholder="Comma separated keywords" value="{{ .keywords }}">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<a href="/">Back</a>
+
+{{ template "footer" }}

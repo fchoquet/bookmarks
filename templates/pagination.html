@@ -1,0 +1,19 @@
+{{ define "pagination" }}
+{{ if sup $.lastPage 1 }}
+<nav aria-label="pagination">
+  <ul class="pagination pagination-sm">
+    <li class="page-item">
+      <a class="page-link" href="{{ $.url }}1">First</a>
+    </li>
+    {{ range .pages }}
+    <li class="page-item {{ if eq . $.page }}active{{ end }}">
+        <a class="page-link" href="{{ $.url }}{{ . }}">{{ . }}</a>
+    </li>
+    {{ end}}
+    <li class="page-item">
+      <a class="page-link" href="{{ $.url }}{{ $.lastPage }}">Last</a>
+    </li>
+  </ul>
+</nav>
+{{ end }}
+{{ end }}
