@@ -5,11 +5,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/cbdr/ats-hal/pager"
-	"github.com/cbdr/ats-sq-api/response"
 	"github.com/fchoquet/bookmarks/app/context"
+	"github.com/fchoquet/bookmarks/app/response"
 	"github.com/fchoquet/bookmarks/bookmarks"
 	"github.com/fchoquet/bookmarks/oembed"
+	"github.com/fchoquet/bookmarks/pager"
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 )

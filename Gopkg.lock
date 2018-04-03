@@ -2,32 +2,10 @@
 
 
 [[projects]]
-  name = "github.com/DataDog/datadog-go"
-  packages = ["statsd"]
-  revision = "9487d3a9d3be5bf3cf60b86ae810b97926964515"
-  version = "2.0.0"
-
-[[projects]]
   name = "github.com/Jeffail/gabs"
   packages = ["."]
   revision = "2a3aa15961d5fee6047b8151b67ac2f08ba2c48c"
   version = "1.0"
-
-[[projects]]
-  name = "github.com/cbdr/ats-sq-api"
-  packages = [
-    "context",
-    "customersystem",
-    "response"
-  ]
-  revision = "b1076cd64231e5aa7f01ed97c943cf18e3781103"
-  version = "v1.9.0"
-
-[[projects]]
-  name = "github.com/cbdr/go-utils"
-  packages = ["metrics"]
-  revision = "538590af0295dba11e7444e8ddb2965cd1dae694"
-  version = "v1.1.1"
 
 [[projects]]
   name = "github.com/davecgh/go-spew"
@@ -149,6 +127,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d7264cf5a45b5d5f0a96a0ea3cc5a976f4339315ff8a087a701f979530e3fe15"
+  inputs-digest = "4c43fcb3fa00f541d9a5baf55bdb7bf371435d7136992437ef9da90b6cea3ce8"
   solver-name = "gps-cdcl"
   solver-version = 1

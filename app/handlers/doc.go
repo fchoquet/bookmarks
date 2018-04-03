@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/cbdr/ats-sq-api/response"
+	"github.com/fchoquet/bookmarks/app/response"
 )
 
 // GetDocHandler returns the swagger doc handler
