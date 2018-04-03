@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"runtime/debug"
 
-	"github.com/cbdr/ats-sq-api/response"
 	"github.com/fchoquet/bookmarks/app/context"
+	"github.com/fchoquet/bookmarks/app/response"
 	log "github.com/sirupsen/logrus"
 )
 
